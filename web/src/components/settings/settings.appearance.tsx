@@ -10,8 +10,9 @@ export default function SettingsAppearance({ settings, updateSetting }: { settin
             <label className="settings-label">Duration (seconds)</label>
             <input
                 type="number"
-                min="1"
-                max="10"
+                min="60"
+                max="1200"
+                step="60"
                 value={settings.duration}
                 onChange={(e) => updateSetting('duration', parseInt(e.target.value))}
                 className="settings-input"

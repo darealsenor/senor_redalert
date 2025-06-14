@@ -7,6 +7,8 @@ export interface ISettings {
     volume: number
     duration: number
     opacity: number
+    autoScroll: boolean
+    scrollSpeed: number
 }
 
 const defaultSettings: ISettings = {
@@ -16,6 +18,8 @@ const defaultSettings: ISettings = {
     volume: 0.6,
     duration: 30,
     opacity: 1.0,
+    autoScroll: true,
+    scrollSpeed: 1
 }
 
 export const settingsAtom = atomWithStorage<ISettings>('RedAlert:Settings', defaultSettings)

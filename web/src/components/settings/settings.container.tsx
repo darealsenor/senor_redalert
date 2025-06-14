@@ -6,9 +6,10 @@ import SettingsEnable from './settings.enable'
 import SettingsPosition from './settings.position'
 import SettingsSound from './settings.sound'
 import SettingsAppearance from './settings.appearance'
+import SettingsControls from './settings.controls'
 import { settingsAtom, type ISettings } from '../../stores/settings.store'
 import { useAtom } from 'jotai'
-
+import SettingsScroll from './settings.scroll'
 
 export default function SettingsContainer() {
   const [settings, setSettings] = useAtom(settingsAtom)
@@ -48,6 +49,8 @@ export default function SettingsContainer() {
         <SettingsPosition settings={settings} updateSetting={updateSetting} />
         <SettingsSound settings={settings} updateSetting={updateSetting} />
         <SettingsAppearance settings={settings} updateSetting={updateSetting} />
+        <SettingsControls />
+        <SettingsScroll settings={settings} updateSetting={updateSetting} />
       </div>
     </div>
   )
