@@ -1,50 +1,47 @@
 import React, { useState } from 'react'
 import { useNuiEvent } from '../../hooks/useNuiEvent'
-import { fetchNui } from '../../utils/fetchNui'
 import './settings.css'
 import SettingsHeader from './settings.header'
 import SettingsEnable from './settings.enable'
 import SettingsPosition from './settings.position'
 import SettingsSound from './settings.sound'
 import SettingsAppearance from './settings.appearance'
+import { settingsAtom, type ISettings } from '../../stores/settings.store'
+import { useAtom } from 'jotai'
 
-export interface Settings {
-  enabled: boolean
-  position: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'center'
-  soundEnabled: boolean
-  volume: number
-  duration: number
-  color: string
-  size: 'small' | 'medium' | 'large'
-  opacity: number
-}
-
-const defaultSettings: Settings = {
-  enabled: true,
-  position: 'top-right',
-  soundEnabled: true,
-  volume: 0.8,
-  duration: 5,
-  color: '#ff0000',
-  size: 'medium',
-  opacity: 0.9,
-}
 
 export default function SettingsContainer() {
-  const [settings, setSettings] = useState<Settings>(defaultSettings)
+  const [settings, setSettings] = useAtom(settingsAtom)
   const [isOpen, setIsOpen] = useState(true)
 
-  useNuiEvent('setSettings', (data: Settings) => {
+  useNuiEvent('setSettings', (data: ISettings) => {
     setSettings(data)
   })
 
-  const updateSetting = (key: keyof Settings, value: any) => {
+  const updateSetting = (key: keyof ISettings, value: any) => {
     const newSettings = { ...settings, [key]: value }
     setSettings(newSettings)
   }
 
+  const getPanelPosition = () => {
+    switch (settings.position) {
+      case 'top-left':
+      case 'bottom-left':
+      case 'center-left':
+        return { right: 0 }
+      case 'top-right':
+      case 'bottom-right':
+      case 'center-right':
+      case 'bottom-center':
+      case 'top-center':
+        return { left: 0 }
+      default:
+        return {}
+    }
+  }
+
   return (
-    <div className={`settings-panel ${isOpen ? 'open' : ''}`}>
+    <div className={`settings-panel ${isOpen ? 'open' : ''}`} style={getPanelPosition()}>
       <SettingsHeader setIsOpen={setIsOpen} />
       <div className="settings-content">
         <SettingsEnable settings={settings} updateSetting={updateSetting} />

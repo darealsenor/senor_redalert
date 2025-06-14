@@ -1,8 +1,9 @@
 import React from 'react'
 import { Settings } from './settings.container'
 import './settings.sound.css'
+import { ISettings } from 'src/stores/settings.store'
 
-export default function SettingsSound({ settings, updateSetting }: { settings: Settings, updateSetting: (key: keyof Settings, value: any) => void }) {
+export default function SettingsSound({ settings, updateSetting }: { settings: ISettings, updateSetting: (key: keyof ISettings, value: any) => void }) {
     return (
         <div className="settings-card settings-sound">
             <div className="settings-sound__row">

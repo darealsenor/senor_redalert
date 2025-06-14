@@ -1,7 +1,7 @@
 import React from 'react'
-import { Settings } from './settings.container'
+import { ISettings } from 'src/stores/settings.store'
 
-export default function SettingsAppearance({ settings, updateSetting }: { settings: Settings, updateSetting: (key: keyof Settings, value: any) => void }) {
+export default function SettingsAppearance({ settings, updateSetting }: { settings: ISettings, updateSetting: (key: keyof ISettings, value: any) => void }) {
     return (
         <div className="settings-card">
             <h3 className="settings-group-title">Alert Appearance</h3>
@@ -16,19 +16,6 @@ export default function SettingsAppearance({ settings, updateSetting }: { settin
                 onChange={(e) => updateSetting('duration', parseInt(e.target.value))}
                 className="settings-input"
             />
-        </div>
-
-        <div className="settings-group">
-            <label className="settings-label">Size</label>
-            <select
-                value={settings.size}
-                onChange={(e) => updateSetting('size', e.target.value)}
-                className="settings-select"
-            >
-                <option value="small">Small</option>
-                <option value="medium">Medium</option>
-                <option value="large">Large</option>
-            </select>
         </div>
 
         <div className="settings-group">

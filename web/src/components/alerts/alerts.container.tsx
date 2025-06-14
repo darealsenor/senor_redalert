@@ -2,10 +2,15 @@ import React from 'react'
 
 import './alerts.container.css'
 import AlertsList from './alerts.list'
+import { getPositionStyle } from '../../utils/alertPosition'
+import { useAtom } from 'jotai'
+import { settingsAtom } from '../../stores/settings.store'
 
 export default function AlertsContainer() {
+  const [settings] = useAtom(settingsAtom)
+
   return (
-    <div className='alerts-container'>
+    <div className='alerts-container' style={getPositionStyle(settings.position)}>
       <div className='alerts-container__header'>
         <div className='alerts-container__header--title'>
           <h1>התרעות פיקוד העורף</h1>

@@ -3,13 +3,14 @@ import fetch from 'node-fetch';
 import { IAlert } from '../../types/alert';
 
 export class Alert {
-    static alerts_TxMessageOnAlert = GetConvarInt("alerts:txMessageOnAlert", 1);
+    static alerts_TxMessageOnAlert = GetConvarInt("alerts:txMessageOnAlert", 1) === 1;
     static alerts_TxMessageOnAlertContent = GetConvar("alerts:txMessageOnAlertContent", Locale("alerts:txMessageOnAlert"));
-    static alerts_TxMessageOnAlertDuration = GetConvarInt("alerts:txMessageOnAlertDuration", 5_000);
 
     static alerts_debug = 1
     static alerts_interval_duration = Alert.alerts_debug ? 1500 : GetConvarInt("alerts:intervalDuration", 10_000);
 
+    static lastTxMessageTime = 0;
+    static txMessageInterval = 10_000;
 
     private static orefUrlFull = `https://redalert.me/alerts`;
 
@@ -19,6 +20,7 @@ export class Alert {
         setInterval(async () => {
             const alerts = Alert.alerts_debug ? Alert.generateDebugAlerts(10) : await Alert.handleAlerts();
             if (alerts.length === 0) return;
+            if (Alert.alerts_TxMessageOnAlert) Alert.txMessage();
             Alert.broadcastAlerts(alerts);
         }, Alert.alerts_interval_duration);
     }
@@ -83,6 +85,13 @@ export class Alert {
             });
         }
         return alerts;
+    }
+
+    private static txMessage(): void {
+        if (Date.now() - Alert.lastTxMessageTime < Alert.txMessageInterval) return;
+        const message = Alert.alerts_TxMessageOnAlertContent;
+        Alert.lastTxMessageTime = Date.now();
+        emitNet('alerts:client:txMessage', -1, message, 'Red Alert');
     }
 
 }
