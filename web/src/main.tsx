@@ -3,10 +3,13 @@ import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
 import { isEnvBrowser } from './utils/misc.ts';
+import { VisibilityProvider } from './providers/VisbillityProvider.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <App />
+    <VisibilityProvider>
+      <App />
+    </VisibilityProvider>
   </React.StrictMode>,
 );
 

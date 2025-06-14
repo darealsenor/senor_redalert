@@ -1,0 +1,22 @@
+.settings-enable {
+    width: 100%;
+}
+
+.settings-enable__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+}
+
+.settings-enable__info {
+    display: flex;
+    flex-direction: column;
+}
+
+.settings-description {
+    font-size: 0.75rem;
+    color: #909296;
+}

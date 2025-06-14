@@ -1,0 +1,12 @@
+.settings-position {
+    width: 100%;
+}
+
+.settings-position__row {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+}

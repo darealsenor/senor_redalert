@@ -1,0 +1,11 @@
+.settings-sound {
+    width: 100%;
+}
+
+.settings-sound__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+    margin-bottom: 1rem;
+}
